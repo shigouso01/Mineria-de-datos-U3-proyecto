@@ -40,13 +40,6 @@ except ImportError:
         "Instálala con: pip install python-louvain"
     )
 
-from centralidad import (
-    calcular_centralidades,
-    reportar_centralidades,
-    detectar_bots,
-    generar_visualizacion,
-)
-
 
 # ---------------------------------------------------------------------------
 # Carga y validación de datos
@@ -207,21 +200,6 @@ def main():
         default="resumen_comunidades.csv",
         help="Ruta de salida para el resumen de comunidades",
     )
-    parser.add_argument(
-        "--out-centralidad",
-        default="centralidad_output.csv",
-        help="Ruta de salida para el top de centralidad/influencers",
-    )
-    parser.add_argument(
-        "--out-bots",
-        default="bots_detectados.csv",
-        help="Ruta de salida para el detalle de bots (Tarea 4)",
-    )
-    parser.add_argument(
-        "--out-html",
-        default="grafo_mundial2026.html",
-        help="Ruta de salida para la visualización interactiva (Tarea 5)",
-    )
     args = parser.parse_args()
 
     edges_df, nodes_df = cargar_datos(args.edges, args.nodes)
@@ -234,23 +212,6 @@ def main():
 
     resumen_df.to_csv(args.out, index=False)
     print(f"\nResumen de comunidades guardado en: {args.out}")
-
-    centralidad_df = calcular_centralidades(G)
-    top_influencers_df = reportar_centralidades(centralidad_df, nodes_df, particion, top_n=10)
-
-    top_influencers_df.to_csv(args.out_centralidad, index=False)
-    print(f"Top de influencers guardado en: {args.out_centralidad}")
-
-    bots_confirmados, candidatos_revision, bots_detalle_df = detectar_bots(
-        G, centralidad_df, nodes_df, particion
-    )
-    bots_detalle_df.to_csv(args.out_bots, index=False)
-    print(f"Detalle de bots guardado en: {args.out_bots}")
-
-    generar_visualizacion(
-        G, particion, centralidad_df, nodes_df, bots_confirmados, modularidad,
-        output_path=args.out_html,
-    )
 
 
 if __name__ == "__main__":

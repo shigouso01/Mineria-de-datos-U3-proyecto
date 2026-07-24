@@ -1,0 +1,11 @@
+node,tipo,pais,comunidad,degree_centrality,betweenness_centrality,eigenvector_centrality,justificacion
+seleccion_usa,seleccion,usa,1,0.172,0.2517,0.3827,alto volumen de interacción directa; actúa como puente entre comunidades; conectada a otras cuentas muy influyentes
+seleccion_mexico,seleccion,mexico,5,0.1935,0.3077,0.3798,alto volumen de interacción directa; actúa como puente entre comunidades; conectada a otras cuentas muy influyentes
+seleccion_canada,seleccion,canada,2,0.1828,0.3325,0.3609,alto volumen de interacción directa; actúa como puente entre comunidades; conectada a otras cuentas muy influyentes
+bbc_sports,medio,global,1,0.0753,0.0682,0.2729,alto volumen de interacción directa; actúa como puente entre comunidades; conectada a otras cuentas muy influyentes
+fifa_news,medio,global,2,0.0645,0.2608,0.2536,alto volumen de interacción directa; actúa como puente entre comunidades; conectada a otras cuentas muy influyentes
+influencer_futbol_03,influencer,global,1,0.043,0.0242,0.2209,alto volumen de interacción directa; conectada a otras cuentas muy influyentes
+bot_fut_01,bot,global,2,0.043,0.0242,0.2179,alto volumen de interacción directa; conectada a otras cuentas muy influyentes
+influencer_futbol_01,influencer,global,2,0.043,0.0242,0.2179,alto volumen de interacción directa; conectada a otras cuentas muy influyentes
+fox_sports_global,medio,global,5,0.0538,0.0457,0.2167,alto volumen de interacción directa; conectada a otras cuentas muy influyentes
+influencer_futbol_02,influencer,global,5,0.043,0.0242,0.212,alto volumen de interacción directa; conectada a otras cuentas muy influyentes

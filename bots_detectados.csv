@@ -1,0 +1,6 @@
+bot,comunidad,menciona_a,mencionado_por
+bot_fut_01,2,seleccion_mexico (peso 1); seleccion_usa (peso 1); seleccion_canada (peso 1); fifa_news (peso 1),
+bot_fut_02,1,seleccion_mexico (peso 1); espn_usa (peso 1); cbc_sports_01 (peso 1),
+bot_fut_03,6,fan_mex_05 (peso 1); fan_usa_06 (peso 1); fan_can_07 (peso 1),
+bot_fut_04,4,fan_mex_10 (peso 1); fan_usa_10 (peso 1); fan_can_10 (peso 1),
+bot_fut_05,5,periodista_mx_01 (peso 1); periodista_usa_01 (peso 1); periodista_can_01 (peso 1),
