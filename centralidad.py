@@ -8,10 +8,6 @@ Todo lo relacionado con centralidad, detección de bots y visualización vive
 en este módulo, para que se importe desde mundial2026_analisis_red.py (que
 ya tiene el grafo, la partición de comunidades y los metadatos de nodos).
 
-Nota general de diseño: las funciones de este módulo reciben el grafo, la
-partición y los DataFrames ya construidos en el script principal — no cargan
-archivos ni recalculan nada por su cuenta — para evitar que T3, T4 y T5
-usen versiones distintas del grafo o de las comunidades sin querer.
 """
 
 import pandas as pd
