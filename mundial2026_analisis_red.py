@@ -1,3 +1,4 @@
+# %%
 """
 Mapa de influencia y desinformación en la conversación sobre el Mundial 2026
 ================================================================================
@@ -255,3 +256,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+# %%
