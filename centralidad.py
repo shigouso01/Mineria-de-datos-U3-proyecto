@@ -96,7 +96,7 @@ def reportar_centralidades(
     resumen = []
     for nodo, fila in top.iterrows():
         tipo = fila.get("tipo", "N/D")
-        pais = fila.get("pais", "N/D")
+        equipo = fila.get("equipo", "N/D")
         comunidad = fila.get("comunidad", "N/D")
 
         # Justificación cualitativa según qué métrica domina
@@ -110,7 +110,7 @@ def reportar_centralidades(
         if not justificacion:
             justificacion.append("influencia moderada y distribuida")
 
-        print(f"  {nodo}  [{tipo} · {pais} · comunidad {comunidad}]")
+        print(f"  {nodo}  [{tipo} · {equipo} · comunidad {comunidad}]")
         print(f"    degree={fila['degree_centrality']:.4f}  "
               f"betweenness={fila['betweenness_centrality']:.4f}  "
               f"eigenvector={fila['eigenvector_centrality']:.4f}")
@@ -119,7 +119,7 @@ def reportar_centralidades(
         resumen.append({
             "node": nodo,
             "tipo": tipo,
-            "pais": pais,
+            "equipo": equipo,
             "comunidad": comunidad,
             "degree_centrality": round(fila["degree_centrality"], 4),
             "betweenness_centrality": round(fila["betweenness_centrality"], 4),
@@ -138,7 +138,7 @@ def reportar_centralidades(
 # Tipos de cuenta que nunca deben marcarse como bot, sin importar sus métricas
 # (fuentes oficiales/medios/influencers verificados según nodes.csv, y los
 # hashtags porque no son cuentas).
-TIPOS_WHITELIST = {"seleccion", "medio", "influencer", "hashtag"}
+TIPOS_WHITELIST = {"equipo", "medio", "influencer", "hashtag"}
 
 
 def detectar_bots(
@@ -262,7 +262,7 @@ def generar_visualizacion(
     nodes_df: pd.DataFrame,
     bots_confirmados: set,
     modularidad: float,
-    output_path: str = "grafo_mundial2026.html",
+    output_path: str = "grafo_nfl2014.html",
 ):
     """
     Genera el HTML interactivo con PyVis pedido en la Tarea 5:
@@ -308,7 +308,7 @@ def generar_visualizacion(
         comunidad = particion.get(node_id)
         eig = cent_idx.loc[node_id, "eigenvector_centrality"] if node_id in cent_idx.index else 0
         tipo = nodes_idx.loc[node_id, "tipo"] if node_id in nodes_idx.index else "N/D"
-        pais = nodes_idx.loc[node_id, "pais"] if node_id in nodes_idx.index else "N/D"
+        equipo = nodes_idx.loc[node_id, "equipo"] if node_id in nodes_idx.index else "N/D"
 
         if comunidad is not None:
             rgba = color_map[comunidad]
@@ -320,7 +320,7 @@ def generar_visualizacion(
         node["size"] = escalar_tamano(eig)
         node["title"] = (
             f"Nodo: {node_id}<br>"
-            f"Tipo: {tipo} · País: {pais}<br>"
+            f"Tipo: {tipo} · Equipo: {equipo}<br>"
             f"Comunidad: {comunidad}<br>"
             f"Eigenvector centrality: {eig:.4f}"
         )
