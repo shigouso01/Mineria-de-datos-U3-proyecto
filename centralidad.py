@@ -274,7 +274,6 @@ def generar_visualizacion(
     - panel lateral con estadísticas globales, top influencers y
       número de bots.
     """
-    import matplotlib.pyplot as plt
     from pyvis.network import Network
 
     print("=" * 70)
@@ -288,19 +287,29 @@ def generar_visualizacion(
     net = Network(
         height="800px",
         width="100%",
-        bgcolor="#ffffff",
-        font_color="black",
+        bgcolor="#1e1e2e",
+        font_color="#ffffff",
         notebook=False,
         directed=False,
     )
     net.from_nx(G_und)
+    for edge in net.edges:
+        edge["color"] = "#555555"
+        edge["width"] = 0.5
 
     comunidades = sorted(set(particion.values()))
-    palette = plt.colormaps["tab20"].resampled(max(len(comunidades), 1))
-    color_map = {com: palette(i) for i, com in enumerate(comunidades)}
+    COMUNIDAD_PALETTE = [
+        "#e63946", "#457b9d", "#2a9d8f", "#e9c46a", "#f4a261",
+        "#a8dadc", "#7b2cbf", "#06d6a0", "#ef476f", "#ffd166",
+        "#118ab2", "#ff6b6b", "#48bfe3", "#72efdd", "#ff9f1c",
+        "#8338ec", "#3a86ff", "#fb5607", "#00bbf9", "#7209b7",
+    ]
+    color_map = {
+        com: COMUNIDAD_PALETTE[i % len(COMUNIDAD_PALETTE)]
+        for i, com in enumerate(comunidades)
+    }
 
     def escalar_tamano(valor):
-        # eigenvector_centrality suele estar entre 0 y ~0.4 en este grafo
         return 10 + (valor * 80)
 
     for node in net.nodes:
@@ -311,11 +320,7 @@ def generar_visualizacion(
         equipo = nodes_idx.loc[node_id, "equipo"] if node_id in nodes_idx.index else "N/D"
 
         if comunidad is not None:
-            rgba = color_map[comunidad]
-            hex_color = "#%02x%02x%02x" % (
-                int(rgba[0] * 255), int(rgba[1] * 255), int(rgba[2] * 255)
-            )
-            node["color"] = hex_color
+            node["color"] = color_map[comunidad]
 
         node["size"] = escalar_tamano(eig)
         node["title"] = (
@@ -350,31 +355,33 @@ position: fixed;
 top: 20px;
 right: 20px;
 width: 320px;
-background: #ffffff;
-border: 2px solid #333;
+background: #1e1e2e;
+border: 1px solid #444;
 padding: 15px;
 border-radius: 10px;
-box-shadow: 0px 0px 10px rgba(0,0,0,0.3);
-font-family: Arial;
+box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+font-family: Arial, sans-serif;
+color: #e0e0e0;
 z-index: 9999;
 ">
-<h3 style="margin-top:0;">📊 Estadísticas Globales</h3>
+<h3 style="margin-top:0; color:#ffffff;">Estadísticas Globales</h3>
 <p><b>Nodos:</b> {G.number_of_nodes()}</p>
 <p><b>Enlaces:</b> {G.number_of_edges()}</p>
 <p><b>Comunidades:</b> {len(comunidades)}</p>
 <p><b>Modularidad:</b> {modularidad:.4f}</p>
 <p><b>Bots detectados:</b> {len(bots_confirmados)}</p>
-<hr>
-<h4>🌟 Top 10 Influencers (eigenvector)</h4>
+<hr style="border-color:#444;">
+<h4 style="color:#f4a261;">Top 10 Influencers (eigenvector)</h4>
 {influencers_html}
-<hr>
+<hr style="border-color:#444;">
 <button onclick="mostrarSoloBots()"
-style="padding:8px; background:#ff0000; color:white; border:none; border-radius:5px;
-cursor:pointer;">
+style="padding:8px 16px; background:#e63946; color:white; border:none;
+border-radius:5px; cursor:pointer; width:100%; font-size:14px;">
 Mostrar solo bots
 </button>
 <button onclick="mostrarTodos()"
-style="padding:8px; margin-top:5px; background:#333; color:white; border:none; border-radius:5px; cursor:pointer;">
+style="padding:8px 16px; margin-top:8px; background:#457b9d; color:white;
+border:none; border-radius:5px; cursor:pointer; width:100%; font-size:14px;">
 Mostrar todos
 </button>
 </div>
